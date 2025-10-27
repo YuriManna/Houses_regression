@@ -1,0 +1,7 @@
+# Common libraries for linear regression and data analysis
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+jupyter
