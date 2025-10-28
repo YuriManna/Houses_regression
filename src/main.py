@@ -43,6 +43,17 @@ for col, mapping in [("LotShape", regularity_map),
 
 dataset.convert_nominal("MSZoning", "Street", "Alley", "LotShape", "LandContour", "LotConfig", "LandSlope", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "RoofStyle", "RoofMatl", "Exterior1st", "Exterior2nd", "MasVnrType", "ExterQual", "ExterCond", "Foundation", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1", "BsmtFinType2", "Heating", "HeatingQC", "CentralAir", "Electrical", "KitchenQual", "Functional", "FireplaceQu", "GarageType", "GarageFinish", "GarageQual", "GarageCond", "PavedDrive", "PoolQC", "Fence", "MiscFeature", "SaleType", "SaleCondition")
 
+none_keys = []
+for i, cols in enumerate(dataset.data.columns):
+    if dataset.data[cols].isnull().any():
+        none_keys.append(cols)
+print(len(none_keys))
 
-# dataset.convert_ordinal("ExterQual", ['Po', 'Fa', 'TA', 'Gd', 'Ex'])
-# print(dataset.data["ExterQual"])
+dataset.fill_NaN()
+
+none_keys = []
+for i, cols in enumerate(dataset.data.columns):
+    if dataset.data[cols].isnull().any():
+        none_keys.append(cols)
+print(len(none_keys))
+
