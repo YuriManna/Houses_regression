@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats 
 
 class VisualizeDataset:
     def __init__(self, data):
@@ -88,17 +89,39 @@ class VisualizeDataset:
         plt.xticks(rotation=45, ha='right')
         plt.show()
 
+    def qq_plot(self, column):
+        """QQ-plot per verificare la normalità di una variabile (residui o target)."""
+        if column not in self.data.columns:
+            print(f"Colonna '{column}' non trovata.")
+            return
+        series = self.data[column].dropna()
+        plt.figure(figsize=(6,6))
+        stats.probplot(series, dist="norm", plot=plt)
+        plt.title(f"Q-Q plot di {column}")
+        plt.show()
+
+    def jointplot_feature(self, feature, target="SalePrice", kind="reg"):
+        """Jointplot (scatter + distribuzioni) tra feature e target."""
+        if feature not in self.data.columns or target not in self.data.columns:
+            print("Feature o target non trovati.")
+            return
+        sns.jointplot(data=self.data, x=feature, y=target, kind=kind, height=7, marginal_kws=dict(bins=30))
+        plt.suptitle(f"Jointplot: {feature} vs {target}", y=1.02)
+        plt.show()
+
+
+
 
 # Esempio (usando il dataset House Prices)
-df = pd.read_csv("../dataset/train.csv")
+df = pd.read_csv("../dataset/train_clean.csv")
 
 viz = VisualizeDataset(df)
 viz.overview()
 viz.missing_values()
 viz.numeric_distribution("SalePrice")
 viz.correlation_heatmap(top_n=15)
-plt.xticks(rotation=45, ha='right')  # oppure rotation=60 se vuoi più inclinato
-plt.show()
 viz.categorical_distribution("Neighborhood")
 viz.categorical_vs_target("OverallQual", "SalePrice")
 
+viz.qq_plot("SalePrice")
+viz.jointplot_feature("GrLivArea", "SalePrice")
