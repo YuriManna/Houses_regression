@@ -54,4 +54,6 @@ class Dataset:
         dummies = pd.get_dummies(self.data[col], prefix=col, dummy_na=False)
         self.data = pd.concat([self.data, dummies], axis=1)
         self.data = self.data.drop(columns=[col])
-        
+    
+    
+
