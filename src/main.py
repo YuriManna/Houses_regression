@@ -1,6 +1,5 @@
 from prepocessing import Dataset
 from model import LinReg, Ridge
-import pandas as pd
 
 def process_dataset(file_path, output_path):
         
@@ -60,20 +59,13 @@ def process_dataset(file_path, output_path):
     return dataset
 
 dataset = process_dataset("../dataset/train.csv", "../dataset/train_clean.csv")
-# dataset_test = process_dataset("data/test.csv", "data/test_clean.csv")
-# print(dataset.data.corr(numeric_only=True)['SalePrice'].sort_values(ascending=False))
 
+print("\n\nLinear Regression Model")
 modello_reg = LinReg(dataset)
 modello_reg.split_data()
 modello_reg.train()
 results = modello_reg.prediction()
 score = modello_reg.evaluate()
-print(f"Model R^2 score: {score}")
-#importance = pd.Series(modello_reg.model.coef_, index=modello_reg.X_train.columns)
-#importance.sort_values().plot(kind='barh')
-# print(f"Most important features: {importance.head(10)}")
-#print(f"Intercept: {modello_reg.model.intercept_}")
-
 
 print("\n\nRidge Regression Model")
 modello_ridge = Ridge(dataset)

@@ -36,7 +36,7 @@ class VisualizeDataset:
         """Istogramma e boxplot per una variabile numerica."""
         if column not in self.data.columns:
             print(f"Colonna '{column}' non trovata.")
-            return
+            return        
 
         plt.figure(figsize=(12, 5))
         plt.subplot(1, 2, 1)
