@@ -7,9 +7,9 @@ class Dataset:
 
     def load_data(self):
         """Load data from a CSV file."""
-        self.data = pd.read_csv(self.file_path)
+        self.data = pd.read_csv(self.file_path, keep_default_na=False)
         return self.data
-    
+
     def visualizzazione(self):
         """Visualizza le prime righe del dataset."""
         if self.data is not None:
@@ -50,8 +50,11 @@ class Dataset:
         for i, v in enumerate(values):
             self.data[col].loc[self.data[col] == v] = i
 
+    def map_column (self, col, mapping):
+        """Mappa i valori di una colonna secondo il dizionario dato."""
+        self.data[col] = self.data[col].map(mapping)
+
     def convert_nominal (self, col):
         dummies = pd.get_dummies(self.data[col], prefix=col, dummy_na=False)
         self.data = pd.concat([self.data, dummies], axis=1)
         self.data = self.data.drop(columns=[col])
-        
