@@ -8,11 +8,11 @@ def process_dataset(file_path, output_path):
     dataset = Dataset(file_path)
 
     dataset.load_data()
-    # dataset.visualizzazione() 
+    dataset.visualizzazione() 
 
     dataset.drop_columns(["Id", "Utilities"])
 
-    # dataset.data.info()
+    dataset.data.info()
 
     regularity_map = {'IR3': 0, 'IR2': 1, 'IR1': 2, 'Reg': 3}
     uti_map = {'ELO': 0, 'NoSeWa': 1, 'NoSewr': 2, 'AllPub': 3}
@@ -82,5 +82,3 @@ modello_ridge.train()
 results_ridge = modello_ridge.prediction()
 score_ridge = modello_ridge.evaluate()
 print(f"Ridge Model R^2 score: {score_ridge}")
-
-

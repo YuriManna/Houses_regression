@@ -1,4 +1,4 @@
-from sklearn.linear_model import LinearRegression , SGDRegressor
+from sklearn.linear_model import LinearRegression , Ridge as SKRidge
 from sklearn.model_selection import train_test_split
 import pandas as pd
 from prepocessing import Dataset
@@ -54,7 +54,7 @@ class LinReg:
 class Ridge:
     def __init__(self, dataset):
         self.dataset = dataset
-        self.model = SGDRegressor()
+        self.model = SKRidge(alpha=1.0, random_state=42)
         self.X_train = None
         self.y_train = None
         self.X_test = None
