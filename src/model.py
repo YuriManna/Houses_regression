@@ -57,7 +57,7 @@ class LinReg(Modello):
         super().__init__(dataset)
         self.model = LinearRegression()
 
-class Ridge:
+class Ridge(Modello):
     def __init__(self, dataset):
         super().__init__(dataset)
         self.model = SKRidge(alpha=1.0, random_state=42)
