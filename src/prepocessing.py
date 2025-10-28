@@ -10,9 +10,9 @@ class Dataset:
         self.data = pd.read_csv(self.file_path, na_values=["", "NaN", "None"], keep_default_na=False)
         return self.data
 
-    def export_data(self):
+    def export_data(self, file_name):
         """Export data in a CSV file."""
-        self.data.to_csv("../dataset/train_clean.csv", index = False)
+        self.data.to_csv(file_name, index = False)
 
     def visualizzazione(self):
         """Visualizza le prime righe del dataset."""
@@ -49,6 +49,9 @@ class Dataset:
     def fill_NaN_string (self, col):
         mode = self.data[col].mode()[0]
         self.data[col] = self.data[col].fillna(mode)
+
+    def convert_string_to_number (self, col):
+        self.data[col] = pd.to_numeric(self.data[col], errors='coerce')
 
     def convert_ordinal (self, col, values):
         for i, v in enumerate(values):
