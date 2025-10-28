@@ -10,6 +10,10 @@ class Dataset:
         self.data = pd.read_csv(self.file_path, na_values=["", "NaN", "None"], keep_default_na=False)
         return self.data
 
+    def export_data(self):
+        """Export data in a CSV file."""
+        self.data.to_csv("../dataset/train_clean.csv", index = False)
+
     def visualizzazione(self):
         """Visualizza le prime righe del dataset."""
         if self.data is not None:
@@ -54,7 +58,8 @@ class Dataset:
         """Mappa i valori di una colonna secondo il dizionario dato."""
         self.data[col] = self.data[col].map(mapping)
 
-    def convert_nominal (self, col):
-        dummies = pd.get_dummies(self.data[col], prefix=col, dummy_na=False)
-        self.data = pd.concat([self.data, dummies], axis=1)
-        self.data = self.data.drop(columns=[col])
+    def convert_nominal (self, columns):
+        for col in columns:
+            dummies = pd.get_dummies(self.data[col], prefix=col, dummy_na=False)
+            self.data = pd.concat([self.data, dummies], axis=1)
+            self.data = self.data.drop(columns=[col])

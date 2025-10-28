@@ -41,7 +41,7 @@ for col, mapping in [("LotShape", regularity_map),
                      ("Fence", fence_map)]:
     dataset.map_column(col, mapping)
 
-dataset.convert_nominal("MSZoning", "Street", "Alley", "LotShape", "LandContour", "LotConfig", "LandSlope", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "RoofStyle", "RoofMatl", "Exterior1st", "Exterior2nd", "MasVnrType", "ExterQual", "ExterCond", "Foundation", "BsmtQual", "BsmtCond", "BsmtExposure", "BsmtFinType1", "BsmtFinType2", "Heating", "HeatingQC", "CentralAir", "Electrical", "KitchenQual", "Functional", "FireplaceQu", "GarageType", "GarageFinish", "GarageQual", "GarageCond", "PavedDrive", "PoolQC", "Fence", "MiscFeature", "SaleType", "SaleCondition")
+dataset.convert_nominal(["MSZoning", "Street", "Alley", "LandContour", "LotConfig", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "RoofStyle", "RoofMatl", "Exterior1st", "Exterior2nd", "MasVnrType", "Foundation", "Heating", "CentralAir", "Electrical", "GarageType", "PavedDrive", "MiscFeature", "SaleType", "SaleCondition"])
 
 none_keys = []
 for i, cols in enumerate(dataset.data.columns):
@@ -57,7 +57,9 @@ for i, cols in enumerate(dataset.data.columns):
         none_keys.append(cols)
 print(len(none_keys))
 
-dataset.convert_nominal("MSZoning", "Street", "Alley", "LandContour", "LotConfig", "Neighborhood", "Condition1", "Condition2", "BldgType", "HouseStyle", "RoofStyle", "RoofMatl", "Exterior1st", "Exterior2nd", "MasVnrType", "Foundation", "Heating", "CentralAir", "Electrical", "GarageType", "PavedDrive", "MiscFeature", "SaleType", "SaleCondition")
+
 
 print(dataset.data['Neighborhood_Blmngtn'].head())
-print(dataset.data[dataset.data['Neighborhood_CollgCr'] == True])
+print(dataset.data[dataset.data['Neighborhood_CollgCr'] == 1])
+
+dataset.export_data()
