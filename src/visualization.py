@@ -88,7 +88,7 @@ class VisualizeDataset:
         plt.xticks(rotation=45, ha='right')
         plt.show()
 
-'''
+
 # Esempio (usando il dataset House Prices)
 df = pd.read_csv("../dataset/train.csv")
 
@@ -97,6 +97,8 @@ viz.overview()
 viz.missing_values()
 viz.numeric_distribution("SalePrice")
 viz.correlation_heatmap(top_n=15)
+plt.xticks(rotation=45, ha='right')  # oppure rotation=60 se vuoi più inclinato
+plt.show()
 viz.categorical_distribution("Neighborhood")
 viz.categorical_vs_target("OverallQual", "SalePrice")
-'''
+
