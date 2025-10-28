@@ -1,11 +1,9 @@
-from abc import abstractclassmethod
-
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression , Ridge as SKRidge
 from sklearn.model_selection import train_test_split
-import pandas as pd
-from prepocessing import Dataset
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 class Modello:
     def __init__(self, dataset):
@@ -28,11 +26,15 @@ class Modello:
         return self.model.predict(self.X_test)
 
     def evaluate(self):
-        score = self.model.score(self.X_test, self.y_test)
         y_pred = self.model.predict(self.X_test)
+        mae = mean_absolute_error(self.y_test, y_pred)
+        rmse = np.sqrt(mean_squared_error(self.y_test, y_pred))
+        r2 = r2_score(self.y_test, y_pred)
+        print(f"MAE: {mae:.3f}")
+        print(f"RMSE: {rmse:.3f}")
+        print(f"R²: {r2:.3f}")
         self.plots(y_pred)
 
-        return score
 
     def plots(self, y_pred):
         sns.set_theme(style="whitegrid")
