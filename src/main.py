@@ -10,6 +10,16 @@ dataset.drop_columns(["Id", "Utilities"])
 
 dataset.data.info()
 
-dataset.convert_ordinal("ExterQual", ['Po', 'Fa', 'TA', 'Gd', 'Ex'])
+none_keys = []
+for i, cols in enumerate(dataset.data.columns):
+    if dataset.data[cols].isnull().any():
+        none_keys.append(cols)
+print(len(none_keys))
 
-print(dataset.data["ExterQual"])
+dataset.fill_NaN()
+
+none_keys = []
+for i, cols in enumerate(dataset.data.columns):
+    if dataset.data[cols].isnull().any():
+        none_keys.append(cols)
+print(len(none_keys))
