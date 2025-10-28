@@ -49,3 +49,9 @@ class Dataset:
     def convert_ordinal (self, col, values):
         for i, v in enumerate(values):
             self.data[col].loc[self.data[col] == v] = i
+
+    def convert_nominal (self, col):
+        dummies = pd.get_dummies(self.data[col], prefix=col, dummy_na=False)
+        self.data = pd.concat([self.data, dummies], axis=1)
+        self.data = self.data.drop(columns=[col])
+        
