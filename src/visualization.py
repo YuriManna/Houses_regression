@@ -1,4 +1,3 @@
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats 
@@ -108,20 +107,3 @@ class VisualizeDataset:
         sns.jointplot(data=self.data, x=feature, y=target, kind=kind, height=7, marginal_kws=dict(bins=30))
         plt.suptitle(f"Jointplot: {feature} vs {target}", y=1.02)
         plt.show()
-
-
-
-
-# Esempio (usando il dataset House Prices)
-df = pd.read_csv("../dataset/train_clean.csv")
-
-viz = VisualizeDataset(df)
-viz.overview()
-viz.missing_values()
-viz.numeric_distribution("SalePrice")
-viz.correlation_heatmap(top_n=15)
-viz.categorical_distribution("Neighborhood")
-viz.categorical_vs_target("OverallQual", "SalePrice")
-
-viz.qq_plot("SalePrice")
-viz.jointplot_feature("GrLivArea", "SalePrice")

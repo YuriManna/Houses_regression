@@ -1,4 +1,5 @@
 from prepocessing import Dataset
+from visualization import VisualizeDataset
 from model import LinReg, Ridge
 
 def process_dataset(file_path, output_path):
@@ -58,8 +59,22 @@ def process_dataset(file_path, output_path):
 
     return dataset
 
+# Preprocessing of the dataset
 dataset = process_dataset("../dataset/train.csv", "../dataset/train_clean.csv")
 
+# Visualization of the dataset
+viz = VisualizeDataset(dataset.data)
+viz.overview()
+viz.missing_values()
+viz.numeric_distribution("SalePrice")
+viz.correlation_heatmap(top_n=15)
+viz.categorical_distribution("Neighborhood")
+viz.categorical_vs_target("OverallQual", "SalePrice")
+
+viz.qq_plot("SalePrice")
+viz.jointplot_feature("GrLivArea", "SalePrice")
+
+# Regressions
 print("\n\nLinear Regression Model")
 modello_reg = LinReg(dataset)
 modello_reg.split_data()
