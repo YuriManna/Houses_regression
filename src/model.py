@@ -1,3 +1,4 @@
+from abc import ABC, abstractmethod
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.linear_model import LinearRegression , Ridge as SKRidge
 from sklearn.model_selection import train_test_split
@@ -5,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-class Modello:
+class Modello(ABC):
     def __init__(self, dataset):
         self.dataset = dataset
         self.model = None
@@ -13,6 +14,11 @@ class Modello:
         self.y_train = None
         self.X_test = None
         self.y_test = None
+        self.set_model()
+
+    @abstractmethod
+    def set_model(self):
+        pass
 
     def split_data(self, test_size=0.2):
         y = self.dataset.data["SalePrice"]
@@ -57,9 +63,13 @@ class Modello:
 class LinReg(Modello):
     def __init__(self, dataset):
         super().__init__(dataset)
+
+    def set_model(self):
         self.model = LinearRegression()
 
 class Ridge(Modello):
     def __init__(self, dataset):
         super().__init__(dataset)
+
+    def set_model(self):
         self.model = SKRidge(alpha=1.0, random_state=42)
