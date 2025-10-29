@@ -53,10 +53,6 @@ class Dataset:
     def convert_string_to_number (self, col):
         self.data[col] = pd.to_numeric(self.data[col], errors='coerce')
 
-    def convert_ordinal (self, col, values):
-        for i, v in enumerate(values):
-            self.data[col].loc[self.data[col] == v] = i
-
     def map_column (self, col, mapping):
         """Mappa i valori di una colonna secondo il dizionario dato."""
         self.data[col] = self.data[col].map(mapping)
